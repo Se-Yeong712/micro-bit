@@ -33,6 +33,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,11 +48,14 @@ import com.bluetooth.mwoolley.microbitbledemo.MicroBit;
 import com.bluetooth.mwoolley.microbitbledemo.R;
 import com.bluetooth.mwoolley.microbitbledemo.Utility;
 import com.bluetooth.mwoolley.microbitbledemo.bluetooth.HrmAdapterService;
+import com.bluetooth.mwoolley.microbitbledemo.receivedata;
 
 public class MenuActivity extends AppCompatActivity implements ConnectionStatusListener {
 
     public static final String EXTRA_NAME = "name";
     public static final String EXTRA_ID = "id";
+
+    private Button btn_data;
 
     private BleAdapterService bluetooth_le_adapter;
 
@@ -88,6 +92,16 @@ public class MenuActivity extends AppCompatActivity implements ConnectionStatusL
         // connect to the Bluetooth service
         Intent gattServiceIntent = new Intent(this, BleAdapterService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+
+        btn_data = (Button)findViewById(R.id.btn_data);
+        btn_data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent data = new Intent(getApplicationContext(), receivedata.class);
+                startActivity(data);
+            }
+        });
+
     }
 
     @Override
